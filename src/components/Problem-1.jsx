@@ -4,20 +4,30 @@ const Problem1 = () => {
   const [show, setShow] = useState("all");
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
+  const [storeTask, setStoreTask] = useState([])
   const [allTasks, setAllTasks] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const task = { name, status };
-    setAllTasks([...allTasks, task]);
-
-    setName("");
-    setStatus("");
-    console.log(allTasks);
+    setStoreTask([...storeTask, task]);
+    setAllTasks(storeTask)
   };
 
   const handleClick = (val) => {
     setShow(val);
+   if(val === 'all'){
+    setAllTasks(storeTask)
+   }
+    if(val === 'active'){
+        const active = storeTask.filter(task => task.status === 'Active')
+        setAllTasks(active);
+    }
+    if(val === 'completed'){
+        const completed = storeTask.filter(task => task.status === 'Completed')
+        setAllTasks(completed);
+    }
+    console.log(val);
   };
 
   return (
